@@ -650,6 +650,7 @@ int getCost(int cardNumber)
  * card effect: player can look at his cards (in order) until 2 treasure cards
  *              are found.
  */
+
 void play_adventurer(struct gameState *state)
 {
     int cardDrawn;
@@ -692,6 +693,13 @@ void play_adventurer(struct gameState *state)
         z = z - 1;
     }
 }
+
+/**
+ * function: smithy
+ * ----------------
+ * description: implements the effect of the smithy card
+ * card effect: draw 3 more cards
+ */
 
 void play_smithy(struct gameState *state, int handPos)
 {
