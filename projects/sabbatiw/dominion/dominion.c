@@ -729,6 +729,47 @@ void play_council_room(struct gameState *state, int handPos)
 }
 
 /**
+ * function: play_remodel
+ * ---------------------------
+ * description: implements the effect of the remodel card
+ * card effect: trash 1 card from your hand and gain a card costing up to 2 more
+ *              gold than it
+ */
+
+int play_remodel(struct gameState *state, int handPos, int choice1, 
+                  int choice2)
+{
+    int currentPlayer = whoseTurn(state);
+    int i;
+    int j;
+
+    // store card we will trash
+    j = state->hand[currentPlayer][choice1];
+
+    if ( (getCost(state->hand[currentPlayer][choice1]) + 2) > getCost(choice2) )
+    {
+        return -1;
+    }
+
+    gainCard(choice2, state, 0, currentPlayer);
+
+    //discard card from hand
+    discardCard(handPos, currentPlayer, state, 0);
+
+    //discard trashed card
+    for (i = 0; i < state->handCount[currentPlayer]; i++)
+    {
+        if (state->hand[currentPlayer][i] == j)
+        {
+            discardCard(i, currentPlayer, state, 0);			
+            break;
+        }
+    }
+
+    return 0;
+}
+
+/**
  * function: play_smithy
  * ----------------
  * description: implements the effect of the smithy card
