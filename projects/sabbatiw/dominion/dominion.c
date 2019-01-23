@@ -730,7 +730,7 @@ void play_council_room(struct gameState *state, int handPos)
 
 /**
  * function: play_remodel
- * ---------------------------
+ * ----------------------
  * description: implements the effect of the remodel card
  * card effect: trash 1 card from your hand and gain a card costing up to 2 more
  *              gold than it
@@ -771,7 +771,7 @@ int play_remodel(struct gameState *state, int handPos, int choice1,
 
 /**
  * function: play_smithy
- * ----------------
+ * ---------------------
  * description: implements the effect of the smithy card
  * card effect: draw 3 more cards
  */
@@ -788,6 +788,27 @@ void play_smithy(struct gameState *state, int handPos)
     }
     
     //discard card from hand
+    discardCard(handPos, currentPlayer, state, 0);
+}
+
+/**
+ * function: play_village
+ * ----------------
+ * description: implements the effect of the village card
+ * card effect: draw 1 card and gain 2 actions
+ */
+
+void play_village(struct gameState *state, int handPos)
+{
+    int currentPlayer = whoseTurn(state);
+
+    //+1 Card
+    drawCard(currentPlayer, state);
+
+    //+2 Actions
+    state->numActions = state->numActions + 2;
+
+    //discard played card from hand
     discardCard(handPos, currentPlayer, state, 0);
 }
 
