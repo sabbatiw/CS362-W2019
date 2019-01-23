@@ -647,7 +647,8 @@ int getCost(int cardNumber)
  * function: play_adventurer
  * -------------------------
  * description: implements the effect of the adventurer card
- * card effect: this card blah blah blah
+ * card effect: player can look at his cards (in order) until 2 treasure cards
+ *              are found.
  */
 void play_adventurer(struct gameState *state)
 {
