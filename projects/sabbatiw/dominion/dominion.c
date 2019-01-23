@@ -695,7 +695,41 @@ void play_adventurer(struct gameState *state)
 }
 
 /**
- * function: smithy
+ * function: play_council_room
+ * ---------------------------
+ * description: implements the effect of the council room card
+ * card effect: draw 4 more cards, gain 1 buy, force opponents to draw 1 card
+ */
+
+void play_council_room(struct gameState *state, int handPos)
+{
+    int currentPlayer = whoseTurn(state);
+    int i;
+
+    // +4 Cards
+    for (i = 0; i < 4; i++)
+    {
+        drawCard(currentPlayer, state);
+    }
+
+    // +1 Buy
+    state->numBuys++;
+
+    // Each other player draws a card
+    for (i = 0; i < state->numPlayers; i++)
+    {
+        if (i != currentPlayer)
+        {
+            drawCard(i, state);
+        }
+    }
+
+    //put played card in played card pile
+    discardCard(handPos, currentPlayer, state, 0);
+}
+
+/**
+ * function: play_smithy
  * ----------------
  * description: implements the effect of the smithy card
  * card effect: draw 3 more cards
