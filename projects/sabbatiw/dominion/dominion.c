@@ -657,7 +657,8 @@ void play_adventurer(struct gameState *state)
     int currentPlayer = whoseTurn(state);
     int drawntreasure = 0;
     int temphand[MAX_HAND];
-    int z = 0;
+    //int z = 0;
+    int z = 1;  // this off by one error was created for assignment-2
 
     while (drawntreasure < 2)
     {
