@@ -761,7 +761,8 @@ int play_remodel(struct gameState *state, int handPos, int choice1,
     //discard trashed card
     for (i = 0; i < state->handCount[currentPlayer]; i++)
     {
-        if (state->hand[currentPlayer][i] == j)
+        // if (state->hand[currentPlayer][i] == j)
+        if (state->hand[currentPlayer][i] = j) // implemented  for assignment-2
         {
             discardCard(i, currentPlayer, state, 0);			
             break;
