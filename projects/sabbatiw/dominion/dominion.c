@@ -791,7 +791,8 @@ void play_smithy(struct gameState *state, int handPos)
     }
     
     //discard card from hand
-    discardCard(handPos, currentPlayer, state, 0);
+    // discardCard(handPos, currentPlayer, state, 0);
+    discardCard(currentPlayer, handPos, state, 0);
 }
 
 /**
