@@ -14,7 +14,7 @@ int dominion_assert(int actual, int expected)
     return actual == expected;
 }
 
-void test_numHandCards()
+void test_whoseTurn()
 {
     int actual[NUM_TESTS];
     int count;
@@ -39,13 +39,13 @@ void test_numHandCards()
     input[3].whoseTurn = INT_MIN;
     expected[3] = INT_MIN;
 
-    printf("-------------------------------\n");
+    printf("----------------------------\n");
 
     count = 0;
 
     for (i = 0; i < NUM_TESTS; i++)
     {
-        printf("%s test %d: [", TEST, i);
+        printf("%s test %d: [", TEST, i + 1);
         actual[i] = whoseTurn(&input[i]);
         if (dominion_assert(actual[i], expected[i]))
         {
@@ -59,15 +59,15 @@ void test_numHandCards()
             printf("%d, actual value: %d\n", expected[i], actual[i]);
         }
     }
-    printf("-------------------------------\n");
+    printf("----------------------------\n");
     printf("%d of %d tests completed.\n", i, NUM_TESTS);
     printf("%d of %d tests successful.\n", count, NUM_TESTS);
-    printf("-------------------------------\n");
+    printf("----------------------------\n");
 
 }
 
 int main(void)
 {
-    test_numHandCards();
+    test_whoseTurn();
     return 0;
 }

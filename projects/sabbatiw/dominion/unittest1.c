@@ -49,7 +49,7 @@ void test_numHandCards()
 
     for (i = 0; i < NUM_TESTS; i++)
     {
-        printf("%s test %d: [", TEST, i);
+        printf("%s test %d: [", TEST, i + 1);
         actual[i] = numHandCards(&input[i]);
         if (dominion_assert(actual[i], expected[i]))
         {
