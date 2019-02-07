@@ -130,4 +130,7 @@ int getWinners(int players[MAX_PLAYERS], struct gameState *state);
 
 int getCost(int cardNumber);
 /* returns the value of each card */
+
+void play_smithy(struct gameState *state, int handPos);
+
 #endif
