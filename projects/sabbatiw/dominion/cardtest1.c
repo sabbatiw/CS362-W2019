@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 #include "dominion.h"
 #include "dominion_helpers.h"
@@ -8,77 +9,83 @@
 #define ANSI_GREEN "\x1b[32m"
 #define ANSI_RESET "\x1b[0m"
 
-#define NUM_TESTS  4
-#define TEST       "smithy card"
+#define NUM_TESTS  9
+#define TEST       "smithy"
 
-int dominion_assert(int actual, int expected)
+int test_number = 0;
+int passed_tests = 0;
+
+void dom_assert(int actual, int expected, char *description)
 {
-    return actual == expected;
+    printf("[ ");
+
+    if (actual == expected)
+    {
+        passed_tests++;
+        printf(ANSI_GREEN "passed" ANSI_RESET);
+    }
+
+    else
+    {
+        printf(ANSI_RED "failed" ANSI_RESET);
+    }
+  
+    printf(" ] %s test %d (%s): expected = %d, actual = %d\n", TEST, 
+           ++test_number, description, expected, actual);
+}
+
+void print_line()
+{
+    printf("---------------------------------------" \
+           "---------------------------------------\n");
 }
 
 void test_smithy_card()
 {
-    int actual[NUM_TESTS];
-    int count;
-    int expected[NUM_TESTS];
-    int i;
-    int input[NUM_TESTS];
+    struct gameState Pre;
+    struct gameState Post;
 
-    struct gameState G;
     int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse, 
                  sea_hag, tribute, smithy};
 
-    /* test 1 */
-    input[0] = 3;
-    expected[0] = input[0] + 2;
+    initializeGame(2, k, rand() + 1, &Pre);
+    memcpy(&Post, &Pre, sizeof Post);
+    cardEffect(smithy, 0, 0, 0, &Post, 0, 0);
+    
+    print_line();
 
-    /* test 2 */
-    input[1] = 8;
-    expected[1] = input[1] + 2;
+    dom_assert(Post.handCount[0], Pre.handCount[0] + 2, "p1 hand size");
+    dom_assert(Post.deckCount[0], Pre.deckCount[0] - 3, "p1 deck size");
+    dom_assert(Post.discardCount[0], Pre.discardCount[0], "p1 discards");
 
-    /* test 3 */
-    input[2] = 0;
-    expected[2] = input[2] + 2;
+    dom_assert(Post.handCount[1], Pre.handCount[1], "p2 hand size");
+    dom_assert(Post.deckCount[1], Pre.deckCount[1], "p2 deck size");
+    dom_assert(Post.discardCount[1], Pre.discardCount[1], "p2 discards");
 
-    /* test 4 */
-    input[3] = -2;
-    expected[3] = input[3] + 2;
+    dom_assert(Post.playedCardCount, Pre.playedCardCount + 1, 
+            "cards played");
 
-    printf("----------------------------\n");
+    dom_assert(Post.supplyCount[estate] + Post.supplyCount[duchy] + 
+               Post.supplyCount[province], Pre.supplyCount[estate] + 
+               Pre.supplyCount[duchy] + Pre.supplyCount[province], 
+               "victory cards");
 
-    count = 0;
-
-    for (i = 0; i < NUM_TESTS; i++)
-    {
-        int result;
-
-        initializeGame(2, k, rand() + 1, &G);
-
-        G.handCount[0] = input[i];
-
-        printf("%s test %d: [", TEST, i + 1);
-        
-        result = cardEffect(smithy, 0, 0, 0, &G, 0, 0);
-        
-        actual[i] = G.handCount[0];
-        if (dominion_assert(actual[i], expected[i]) && result == 0)
-        {
-            count++;
-            printf(ANSI_GREEN "passed" ANSI_RESET "]\n");
-        }
-        
-        else
-        {
-            printf(ANSI_RED "failed" ANSI_RESET "] expected value: ");
-            printf("%d, actual value: %d\n", expected[i], actual[i]);
-        }
-    }
-
-    printf("----------------------------\n");
-    printf("%d of %d tests completed.\n", i, NUM_TESTS);
-    printf("%d of %d tests successful.\n", count, NUM_TESTS);
-    printf("----------------------------\n");
-
+    dom_assert(Post.supplyCount[k[0]] + Post.supplyCount[k[1]] + 
+               Post.supplyCount[k[2]] + Post.supplyCount[k[3]] +
+               Post.supplyCount[k[4]] + Post.supplyCount[k[5]] +
+               Post.supplyCount[k[6]] + Post.supplyCount[k[7]] +
+               Post.supplyCount[k[8]] + Post.supplyCount[k[9]],
+               Pre.supplyCount[k[0]] + Pre.supplyCount[k[1]] +
+               Pre.supplyCount[k[2]] + Pre.supplyCount[k[3]] +
+               Pre.supplyCount[k[4]] + Pre.supplyCount[k[5]] +
+               Pre.supplyCount[k[6]] + Pre.supplyCount[k[7]] +
+               Pre.supplyCount[k[8]] + Pre.supplyCount[k[9]], "kingdom cards");
+    
+    print_line();
+    printf("%s tests: %d of %d completed.\n", TEST, test_number, NUM_TESTS);
+    printf("              %d of %d successful.\n",
+            passed_tests, NUM_TESTS);
+    print_line();
 }
 
 int main(void)
