@@ -25,9 +25,8 @@ void test_smithy_card()
     int input[NUM_TESTS];
 
     struct gameState G;
-    int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse, sea_hag, tribute, smithy};
-
-//    initializeGame(2, k, 1, &G);
+    int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse, 
+                 sea_hag, tribute, smithy};
 
     /* test 1 */
     input[0] = 3;
@@ -61,7 +60,6 @@ void test_smithy_card()
         
         result = cardEffect(smithy, 0, 0, 0, &G, 0, 0);
         
-        //play_smithy(&G, 0);
         actual[i] = G.handCount[0];
         if (dominion_assert(actual[i], expected[i]) && result == 0)
         {
