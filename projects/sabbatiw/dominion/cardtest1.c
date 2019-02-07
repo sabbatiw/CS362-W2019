@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "dominion.h"
+#include "dominion_helpers.h"
 
 #define ANSI_RED   "\x1b[31m"
 #define ANSI_GREEN "\x1b[32m"
@@ -50,14 +51,19 @@ void test_smithy_card()
 
     for (i = 0; i < NUM_TESTS; i++)
     {
+        int result;
+
         initializeGame(2, k, rand() + 1, &G);
 
         G.handCount[0] = input[i];
 
         printf("%s test %d: [", TEST, i + 1);
-        play_smithy(&G, 0);
+        
+        result = cardEffect(smithy, 0, 0, 0, &G, 0, 0);
+        
+        //play_smithy(&G, 0);
         actual[i] = G.handCount[0];
-        if (dominion_assert(actual[i], expected[i]))
+        if (dominion_assert(actual[i], expected[i]) && result == 0)
         {
             count++;
             printf(ANSI_GREEN "passed" ANSI_RESET "]\n");
