@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "dominion.h"
+#include "dominion_helpers.h"
 
 #define ANSI_RED   "\x1b[31m"
 #define ANSI_GREEN "\x1b[32m"
