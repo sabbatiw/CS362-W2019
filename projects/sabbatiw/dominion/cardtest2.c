@@ -74,6 +74,7 @@ void print_line()
  * test 9)  victory card pile
  * test 10) kingdom card pile
  */
+
 void test_adventurer_card()
 {
     int i;
