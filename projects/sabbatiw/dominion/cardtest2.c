@@ -9,12 +9,13 @@
 #include "dominion.h"
 #include "dominion_helpers.h"
 
-#define ANSI_RED   "\x1b[31m"
-#define ANSI_GREEN "\x1b[32m"
-#define ANSI_RESET "\x1b[0m"
+#define ANSI_RED    "\x1b[31m"
+#define ANSI_GREEN  "\x1b[32m"
+#define ANSI_YELLOW "\x1b[33m"
+#define ANSI_RESET  "\x1b[0m"
 
-#define NUM_TESTS  10
-#define TEST       "adventurer"
+#define NUM_TESTS   10
+#define TEST        "adventurer"
 
 /*
  * global counters
@@ -107,6 +108,8 @@ void test_adventurer_card()
         if (c == copper || c == silver || c == gold) post_treasure++;
     }
   
+    print_line();
+    printf(ANSI_YELLOW "begin %s testing\n" ANSI_RESET, TEST);
     print_line();
 
     /* test 1: we increase hand size +2 */

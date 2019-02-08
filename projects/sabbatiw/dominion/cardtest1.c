@@ -9,12 +9,13 @@
 #include "dominion.h"
 #include "dominion_helpers.h"
 
-#define ANSI_RED   "\x1b[31m"
-#define ANSI_GREEN "\x1b[32m"
-#define ANSI_RESET "\x1b[0m"
+#define ANSI_RED    "\x1b[31m"
+#define ANSI_GREEN  "\x1b[32m"
+#define ANSI_YELLOW "\x1b[33m"
+#define ANSI_RESET  "\x1b[0m"
 
-#define NUM_TESTS  9
-#define TEST       "smithy"
+#define NUM_TESTS   9
+#define TEST        "smithy"
 
 /*
  * global counters
@@ -89,6 +90,8 @@ void test_smithy_card()
     /* play smithy */
     cardEffect(smithy, 0, 0, 0, &Post, 0, 0);
     
+    print_line();
+    printf(ANSI_YELLOW "begin %s testing\n" ANSI_RESET, TEST);
     print_line();
 
     /* test 1: we increase hand size +(3 - 1) */
