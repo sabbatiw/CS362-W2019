@@ -1,149 +1,184 @@
+/*
+ * tests for getCost()
+ */
+
+#include <limits.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
 #include "dominion.h"
 #include "dominion_helpers.h"
 
-#define ANSI_RED   "\x1b[31m"
-#define ANSI_GREEN "\x1b[32m"
-#define ANSI_RESET "\x1b[0m"
+#define ANSI_RED    "\x1b[31m"
+#define ANSI_GREEN  "\x1b[32m"
+#define ANSI_YELLOW "\x1b[33m"
+#define ANSI_RESET  "\x1b[0m"
 
-#define NUM_TESTS  28
-#define TEST       "getCost()"
+#define NUM_TESTS   4
+#define TEST        "getCost()"
 
-int dominion_assert(int actual, int expected)
+/*
+ * global counters
+ */
+
+int test_number = 0;
+int passed_tests = 0;
+
+/*
+ * function: dom_assert
+ * --------------------
+ * determines if two values are equal and displays the results
+ */
+
+void dom_assert(int actual, int expected, char *description)
 {
-    return actual == expected;
+    printf("[ ");
+
+    if (actual == expected)
+    {
+        passed_tests++;
+        printf(ANSI_GREEN "passed" ANSI_RESET);
+    }
+
+    else
+    {
+        printf(ANSI_RED "failed" ANSI_RESET);
+    }
+  
+    printf(" ] test %d (%s): expected = %d, actual = %d\n",  
+           ++test_number, description, expected, actual);
 }
+
+/*
+ * function: print_line
+ * --------------------
+ * prints a dashed line of 80 chars
+ */
+
+void print_line()
+{
+    printf("---------------------------------------" \
+           "---------------------------------------\n");
+}
+
+/*
+ * function: test_whoseTurn
+ * ------------------------------
+ * numHandCards returns the number of cards in a player's hand
+ */
 
 void test_getCost()
 {
-    int actual[NUM_TESTS];
-    int count;
-    int expected[NUM_TESTS];
-    int i;
-    int input[NUM_TESTS];
-    
-    /* there are only 27 cards, but we are testing 28 */
-    /* if a card doesn't exist, it's value should be -1 */
-    for (i = 0; i < NUM_TESTS; i++)
-    {
-        input[i] = i;
-    }
+    print_line();
+    printf(ANSI_YELLOW "begin %s testing\n" ANSI_RESET, TEST);
+    print_line();
 
     /* test 1 */
-    expected[0] = 0;
-    
+    dom_assert(getCost(0), 0, "curse");
+
     /* test 2 */
-    expected[1] = 2;
-    
+    dom_assert(getCost(1), 2, "estate");
+
     /* test 3 */
-    expected[2] = 5;
-    
+    dom_assert(getCost(2), 5, "duchy");
+
     /* test 4 */
-    expected[3] = 8;
+    dom_assert(getCost(3), 8, "province");
 
     /* test 5 */
-    expected[4] = 0;
+    dom_assert(getCost(4), 0, "copper");
 
     /* test 6 */
-    expected[5] = 3;
-    
+    dom_assert(getCost(5), 3, "silver");
+
     /* test 7 */
-    expected[6] = 6;
-    
+    dom_assert(getCost(6), 6, "gold");
+
     /* test 8 */
-    expected[7] = 6;
-    
+    dom_assert(getCost(7), 6, "adventurer");
+
     /* test 9 */
-    expected[8] = 5;
+    dom_assert(getCost(8), 5, "council_room");
 
     /* test 10 */
-    expected[9] = 4;
+    dom_assert(getCost(9), 4, "feast");
 
     /* test 11 */
-    expected[10] = 4;
-    
+    dom_assert(getCost(10), 4, "gardens");
+
     /* test 12 */
-    expected[11] = 5;
-    
+    dom_assert(getCost(11), 5, "mine");
+
     /* test 13 */
-    expected[12] = 4;
-    
+    dom_assert(getCost(12), 4, "remodel");
+
     /* test 14 */
-    expected[13] = 4;
+    dom_assert(getCost(13), 4, "smithy");
 
     /* test 15 */
-    expected[14] = 3;
+    dom_assert(getCost(14), 3, "village");
 
     /* test 16 */
-    expected[15] = 4;
-    
+    dom_assert(getCost(15), 4, "baron");
+
     /* test 17 */
-    expected[16] = 3;
-    
+    dom_assert(getCost(16), 3, "great_hall");
+
     /* test 18 */
-    expected[17] = 5;
-    
+    dom_assert(getCost(17), 5, "minion");
+
     /* test 19 */
-    expected[18] = 3;
+    dom_assert(getCost(18), 3, "steward");
 
     /* test 20 */
-    expected[19] = 5;
+    dom_assert(getCost(19), 5, "tribute");
 
     /* test 21 */
-    expected[20] = 3;
-    
+    dom_assert(getCost(20), 3, "ambassador");
+
     /* test 22 */
-    expected[21] = 4;
-    
+    dom_assert(getCost(21), 4, "cutpurse");
+
     /* test 23 */
-    expected[22] = 2;
-    
+    dom_assert(getCost(22), 2, "embargo");
+
     /* test 24 */
-    expected[23] = 5;
+    dom_assert(getCost(23), 5, "outpost");
 
     /* test 25 */
-    expected[24] = 4;
+    dom_assert(getCost(24), 4, "salvager");
 
     /* test 26 */
-    expected[25] = 4;
-    
+    dom_assert(getCost(25), 4, "sea_hag");
+
     /* test 27 */
-    expected[26] = 4;
-    
+    dom_assert(getCost(26), 4, "treasure_map");
+
     /* test 28 */
-    /* this card doesn't exist */
-    input[27] = 27;
-    expected[27] = -1;
+    dom_assert(getCost(27), -1, "invalid card");
 
-    printf("---------------------------\n");
+    print_line();
 
-    count = 0;
-
-    for (i = 0; i < NUM_TESTS; i++)
-    {
-        printf("%s test %d: [", TEST, i + 1);
-        actual[i] = getCost(input[i]);
-        if (dominion_assert(actual[i], expected[i]))
-        {
-            count++;
-            printf(ANSI_GREEN "passed" ANSI_RESET "]\n");
-        }
-        
-        else
-        {
-            printf(ANSI_RED "failed" ANSI_RESET "] expected value: ");
-            printf("%d, actual value: %d\n", expected[i], actual[i]);
-        }
-    }
-    printf("---------------------------\n");
-    printf("%d of %d tests completed.\n", i, NUM_TESTS);
-    printf("%d of %d tests successful.\n", count, NUM_TESTS);
-    printf("---------------------------\n");
-
+    /* totals */
+    printf("%s tests: %d of %d completed.\n", TEST, test_number, NUM_TESTS);
+    printf("                 %d of %d successful.\n",
+            passed_tests, NUM_TESTS);
+    print_line();
 }
+
+/*
+ * function: main
+ * --------------
+ * seed rng and run the tests
+ */
 
 int main(void)
 {
+    time_t t;
+
+    srand((unsigned) time(&t));
     test_getCost();
+    
     return 0;
 }
