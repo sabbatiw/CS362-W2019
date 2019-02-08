@@ -15,7 +15,7 @@
 #define ANSI_YELLOW "\x1b[33m"
 #define ANSI_RESET  "\x1b[0m"
 
-#define NUM_TESTS   4
+#define NUM_TESTS   5
 #define TEST        "isGameOver()"
 
 /*
@@ -88,19 +88,36 @@ void test_isGameOver()
     /* test 2 */
     Test.supplyCount[province] = 0;
     dom_assert(isGameOver(&Test), 1, "no province");
+    
+    /* reset */
     Test.supplyCount[province] = 1;
     
     /* test 3 */
     Test.supplyCount[adventurer] = 0;
     Test.supplyCount[embargo] = 0;
     dom_assert(isGameOver(&Test), 0, "2 empty piles");
+    
+    /* reset */
+    Test.supplyCount[adventurer] = 1;
+    Test.supplyCount[embargo] = 1;
 
     /* tests 4*/
     Test.supplyCount[smithy] = 0;
     Test.supplyCount[gardens] = 0;
     Test.supplyCount[tribute]= 0;
     dom_assert(isGameOver(&Test), 1, "3 empty piles");
-       
+
+    /* reset */
+    Test.supplyCount[smithy] = 1;
+    Test.supplyCount[gardens] = 1;
+    Test.supplyCount[tribute] = 1;
+
+    /* tests 5*/
+    Test.supplyCount[smithy] = 0;
+    Test.supplyCount[gardens] = 0;
+    Test.supplyCount[treasure_map]= 0;
+    dom_assert(isGameOver(&Test), 1, "3 empty piles");
+
     print_line();
 
     /* totals */
