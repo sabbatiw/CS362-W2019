@@ -33,6 +33,8 @@ unittest3: unittest3.o dominion.o rngs.o
 unittest4: unittest4.o dominion.o rngs.o
 	gcc -o unittest4 -g unittest4.c dominion.o rngs.o $(CFLAGS)
 
+unittests: unittest1 unittest2 unittest3 unittest4
+
 cardtest1: cardtest1.o dominion.o rngs.o
 	gcc -o cardtest1 -g cardtest1.c dominion.o rngs.o $(CFLAGS)
 
@@ -44,6 +46,8 @@ cardtest3: cardtest3.o dominion.o rngs.o
 
 cardtest4: cardtest4.o dominion.o rngs.o
 	gcc -o cardtest4 -g cardtest4.c dominion.o rngs.o $(CFLAGS)
+
+cardtests: cardtest1 cardtest2 cardtest3 cardtest4
 
 interface.o: interface.h interface.c
 	gcc -c interface.c -g  $(CFLAGS)
@@ -63,3 +67,29 @@ clean:
 			*.out testDrawCard testDrawCard.exe
 	rm -f unittest1 unittest2 unittest3 unittest4 \
 			cardtest1 cardtest2 cardtest3 cardtest4
+
+unittestresults: all unittests cardtests 
+	./unittest1 >> unittestresults.out
+	./unittest2 >> unittestresults.out
+	./unittest3 >> unittestresults.out
+	./unittest4 >> unittestresults.out
+	./cardtest1 >> unittestresults.out
+	./cardtest2 >> unittestresults.out
+	./cardtest3 >> unittestresults.out
+	./cardtest4 >> unittestresults.out
+	echo "---------------------------------------" >> unittestresults.out
+	echo "my 4 functions coverage" >> unittestresults.out
+	echo "---------------------------------------" >> unittestresults.out
+	gcov dominion.c -f | grep -A1 numHandCards >> unittestresults.out
+	gcov dominion.c -f | grep -A1 whoseTurn >> unittestresults.out
+	gcov dominion.c -f | grep -A1 isGameOver >> unittestresults.out
+	gcov dominion.c -f | grep -A1 getCost >> unittestresults.out
+	echo "---------------------------------------" >> unittestresults.out
+	echo "---------------------------------------" >> unittestresults.out
+	echo "complete gcov results" >> unittestresults.out
+	echo "---------------------------------------" >> unittestresults.out
+	gcov -b dominion.c >> unittestresults.out
+	cat dominion.c.gcov >> unittestresults.out
+	echo "Please use \"less -r unittestresults.out\" to view the results"
+
+.SILENT:
