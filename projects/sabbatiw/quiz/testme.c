@@ -21,8 +21,8 @@ char inputChar()
 /*
  * function: inputString
  * ---------------------
- * returns a random string using the characters from input_pool[].  the size of
- * string is always the same size as globally defined random_string[].
+ * returns a random string using the characters from input_pool[]. the size of
+ * the string is always the same size as the globally defined random_string[].
  */
 
 char *inputString()
