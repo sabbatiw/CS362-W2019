@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
 #include "dominion.h"
 #include "dominion_helpers.h"
 
@@ -14,6 +13,7 @@
 #define ANSI_YELLOW "\x1b[33m"
 #define ANSI_RESET  "\x1b[0m"
 
+#define GAME        123456789
 #define NUM_TESTS   9
 #define TEST        "great_hall"
 
@@ -84,7 +84,7 @@ void test_great_hall_card()
                  great_hall, tribute, smithy};
 
     /* prepare pre and post game states */
-    initializeGame(2, k, rand() + 1, &Pre);
+    initializeGame(2, k, GAME, &Pre);
     memcpy(&Post, &Pre, sizeof Post);
 
     /* play adventurer */
@@ -146,9 +146,6 @@ void test_great_hall_card()
 
 int main(void)
 {
-    time_t t;
-
-    srand((unsigned) time(&t));
     test_great_hall_card();
     
     return 0;

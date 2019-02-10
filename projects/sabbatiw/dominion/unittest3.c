@@ -6,7 +6,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
 #include "dominion.h"
 #include "dominion_helpers.h"
 
@@ -15,6 +14,7 @@
 #define ANSI_YELLOW "\x1b[33m"
 #define ANSI_RESET  "\x1b[0m"
 
+#define GAME        123456789
 #define NUM_TESTS   5
 #define TEST        "isGameOver()"
 
@@ -76,7 +76,7 @@ void test_isGameOver()
                  sea_hag, tribute, smithy};
 
     /* prepare pre and post game states */
-    initializeGame(4, k, rand() + 1, &Test);
+    initializeGame(4, k, GAME, &Test);
 
     print_line();
     printf(ANSI_YELLOW "begin %s testing\n" ANSI_RESET, TEST);
@@ -135,9 +135,6 @@ void test_isGameOver()
 
 int main(void)
 {
-    time_t t;
-
-    srand((unsigned) time(&t));
     test_isGameOver();
     
     return 0;
