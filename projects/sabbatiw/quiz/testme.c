@@ -3,16 +3,39 @@
 #include <stdlib.h>
 #include <time.h>
 
+/* this is the magic string we're looking for */
+static char random_string[] = "reset";
+
+/*
+ * function: inputChar
+ * -------------------
+ * returns a random character from input_pool[].
+ */
+
 char inputChar()
 {
-    // TODO: rewrite this function
-    return ' ';
+    char input_pool[] = "[({ ax})]";
+    return input_pool[rand() % strlen(input_pool)];
 }
+
+/*
+ * function: inputString
+ * ---------------------
+ * returns a random string using the characters from input_pool[].  the size of
+ * string is always the same size as globally defined random_string[].
+ */
 
 char *inputString()
 {
-    // TODO: rewrite this function
-    return "";
+    int i;
+    char input_pool[] = "erst";
+    
+    for (i = 0; i < (int)strlen(random_string); i++)
+    {
+        random_string[i] = input_pool[rand() % strlen(input_pool)];
+    }
+    
+    return random_string;
 }
 
 void testme()
