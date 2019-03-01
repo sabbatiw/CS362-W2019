@@ -55,6 +55,12 @@ randomtestadventurer: randomtestadventurer.o dominion.o rngs.o
 	echo >> randomtestadventurer.out
 	gcov -b dominion.c >> randomtestadventurer.out
 
+randomtestcard1: randomtestcard1.o dominion.o rngs.o
+	gcc -o randomtestcard1 -g randomtestcard1.c dominion.o rngs.o $(CFLAGS)
+	./randomtestcard1 > randomtestcard1.out
+	echo >> randomtestcard1.out
+	gcov -b dominion.c >> randomtestcard1.out
+
 interface.o: interface.h interface.c
 	gcc -c interface.c -g  $(CFLAGS)
 
