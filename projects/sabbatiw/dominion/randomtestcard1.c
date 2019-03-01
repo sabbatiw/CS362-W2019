@@ -9,7 +9,7 @@
 #define CARD      "great_hall"
 #define NUM_TESTS 10000
 
-int check_adventurer_card(struct gameState *post)
+int check_great_hall_card(struct gameState *post)
 {
     int bonus;
     int player;
@@ -85,7 +85,6 @@ int main ()
         G.discardCount[player] = floor(Random() * MAX_DECK);
         G.handCount[player]    = floor(Random() * G.deckCount[player]);
 
-        G.playedCardCount      = 0;
         G.whoseTurn            = player;
 
         for (j = 0; j < G.handCount[player]; j++)
@@ -98,7 +97,7 @@ int main ()
             G.deck[player][j] = floor(Random() * 26);
         }
 
-        result += check_adventurer_card(&G);
+        result += check_great_hall_card(&G);
     }
 
     printf("\n=======\n");
