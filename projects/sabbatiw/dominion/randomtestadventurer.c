@@ -7,7 +7,7 @@
 #include "rngs.h"
 
 #define CARD      "adventurer"
-#define NUM_TESTS 1000
+#define NUM_TESTS 10000
 
 int check_adventurer_card(struct gameState *post)
 {
@@ -103,7 +103,7 @@ int main ()
         player                 = floor(Random() * 2);
         G.deckCount[player]    = floor(Random() * (MAX_DECK - 2) + 2);
         G.discardCount[player] = floor(Random() * MAX_DECK);
-        G.handCount[player]    = floor(Random() * G.deckCount[player]);
+        G.handCount[player]    = floor(Random() * MAX_DECK);
 
         G.playedCardCount      = 0;
         G.whoseTurn            = player;

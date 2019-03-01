@@ -81,9 +81,9 @@ int main ()
         }
 
         player                 = floor(Random() * 2);
-        G.deckCount[player]    = floor(Random() * (MAX_DECK - 2) + 2);
+        G.deckCount[player]    = floor(Random() * MAX_DECK);
         G.discardCount[player] = floor(Random() * MAX_DECK);
-        G.handCount[player]    = floor(Random() * G.deckCount[player]);
+        G.handCount[player]    = floor(Random() * MAX_DECK);
 
         G.playedCardCount      = 0;
         G.whoseTurn            = player;
