@@ -93,6 +93,7 @@ int main ()
         G.handCount[player]    = floor(Random() * G.deckCount[player]);
         G.outpostPlayed        = floor(Random() * (MAX_DECK - 1));
 
+        G.playedCardCount      = 0;
         G.whoseTurn            = player;
 
         for (j = 0; j < G.handCount[player]; j++)

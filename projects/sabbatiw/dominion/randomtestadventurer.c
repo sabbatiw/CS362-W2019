@@ -105,6 +105,7 @@ int main ()
         G.discardCount[player] = floor(Random() * MAX_DECK);
         G.handCount[player]    = floor(Random() * G.deckCount[player]);
 
+        G.playedCardCount      = 0;
         G.whoseTurn            = player;
 
         for (j = 0; j < G.handCount[player]; j++)
