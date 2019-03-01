@@ -129,7 +129,18 @@ int main ()
             }
 
         } while (num_treasure < 2);
-        
+       
+        /*
+         * fixed test for 100% coverage
+         * ----------------------------
+         * by uncommenting the following if statement, the adventure card
+         * will be able to achieve 100% statement and branch coverage. however,
+         * the subsequent Shuffle() call does not actually work, and the deck
+         * remains at 0. ss a result, all tests for this iteration will fail.
+         *
+         * if (n = NUM_TESTS - 1) G.deckCount[player] = 0;
+         */
+         
         result += check_adventurer_card(&G);
     }
 
