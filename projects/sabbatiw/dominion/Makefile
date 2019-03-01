@@ -51,21 +51,21 @@ cardtests: cardtest1 cardtest2 cardtest3 cardtest4
 
 randomtestadventurer: randomtestadventurer.o dominion.o rngs.o
 	gcc -o randomtestadventurer -g randomtestadventurer.c dominion.o rngs.o $(CFLAGS)
-#	./randomtestadventurer > randomtestadventurer.out
-#	echo >> randomtestadventurer.out
-#	gcov -b dominion.c >> randomtestadventurer.out
+	./randomtestadventurer > randomtestadventurer.out
+	echo >> randomtestadventurer.out
+	gcov -b dominion.c >> randomtestadventurer.out
 
 randomtestcard1: randomtestcard1.o dominion.o rngs.o
 	gcc -o randomtestcard1 -g randomtestcard1.c dominion.o rngs.o $(CFLAGS)
-#	./randomtestcard1 > randomtestcard1.out
-#	echo >> randomtestcard1.out
-#	gcov -b dominion.c >> randomtestcard1.out
+	./randomtestcard1 > randomtestcard1.out
+	echo >> randomtestcard1.out
+	gcov -b dominion.c >> randomtestcard1.out
 
 randomtestcard2: randomtestcard2.o dominion.o rngs.o
 	gcc -o randomtestcard2 -g randomtestcard2.c dominion.o rngs.o $(CFLAGS)
-#	./randomtestcard2 > randomtestcard2.out
-#	echo >> randomtestcard2.out
-#	gcov -b dominion.c >> randomtestcard2.out
+	./randomtestcard2 > randomtestcard2.out
+	echo >> randomtestcard2.out
+	gcov -b dominion.c >> randomtestcard2.out
 
 randomtests: randomtestadventurer randomtestcard1 randomtestcard2
 
@@ -113,15 +113,4 @@ unittestresults: all unittests cardtests
 	cat dominion.c.gcov >> unittestresults.out
 	echo "Please use \"less -r unittestresults.out\" to view the results"
 
-randomtestresults: all randomtests 
-	./randomtestcard1 >> randomtestresults.out
-	./randomtestcard2 >> randomtestresults.out
-	./randomtestadventurer >> randomtestresults.out
-	echo "---------------------------------------" >> randomtestresults.out
-	echo "---------------------------------------" >> randomtestresults.out
-	echo "complete gcov results" >> unittestresults.out
-	echo "---------------------------------------" >> randomtestresults.out
-	gcov -b dominion.c >> randomtestresults.out
-	cat dominion.c.gcov >> randomtestresults.out
-
-#.SILENT:
+.SILENT:
