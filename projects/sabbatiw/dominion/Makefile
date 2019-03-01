@@ -49,6 +49,12 @@ cardtest4: cardtest4.o dominion.o rngs.o
 
 cardtests: cardtest1 cardtest2 cardtest3 cardtest4
 
+randomtestadventurer: randomtestadventurer.o dominion.o rngs.o
+	gcc -o randomtestadventurer -g randomtestadventurer.c dominion.o rngs.o $(CFLAGS)
+	./randomtestadventurer > randomtestadventurer.out
+	echo >> randomtestadventurer.out
+	gcov -b dominion.c >> randomtestadventurer.out
+
 interface.o: interface.h interface.c
 	gcc -c interface.c -g  $(CFLAGS)
 
@@ -92,4 +98,4 @@ unittestresults: all unittests cardtests
 	cat dominion.c.gcov >> unittestresults.out
 	echo "Please use \"less -r unittestresults.out\" to view the results"
 
-.SILENT:
+#.SILENT:
