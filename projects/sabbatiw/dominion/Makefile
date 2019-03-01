@@ -84,7 +84,8 @@ clean:
 	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so \
 			*.out testDrawCard testDrawCard.exe
 	rm -f unittest1 unittest2 unittest3 unittest4 \
-			cardtest1 cardtest2 cardtest3 cardtest4
+			cardtest1 cardtest2 cardtest3 cardtest4 \
+			randomtestcard1 randomtestcard2 randomtestadventurer
 
 unittestresults: all unittests cardtests 
 	./unittest1 >> unittestresults.out
@@ -109,5 +110,16 @@ unittestresults: all unittests cardtests
 	gcov -b dominion.c >> unittestresults.out
 	cat dominion.c.gcov >> unittestresults.out
 	echo "Please use \"less -r unittestresults.out\" to view the results"
+
+randomtestresults: all randomtests 
+	./randomtestcard1 >> randomtestresults.out
+	./randomtestcard2 >> randomtestresults.out
+	./randomtestcard3 >> randomtestresults.out
+	echo "---------------------------------------" >> randomtestresults.out
+	echo "---------------------------------------" >> randomtestresults.out
+	echo "complete gcov results" >> unittestresults.out
+	echo "---------------------------------------" >> randomtestresults.out
+	gcov -b dominion.c >> randomtestresults.out
+	cat dominion.c.gcov >> randomtestresults.out
 
 #.SILENT:
