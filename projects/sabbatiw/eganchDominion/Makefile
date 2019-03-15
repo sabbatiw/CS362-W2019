@@ -1,4 +1,4 @@
-CFLAGS= -Wall -fpic -coverage -lm -std=c99
+CFLAGS= -g -Wall -fpic -coverage -lm -std=c99
 
 rngs.o: rngs.h rngs.c
 	gcc -c rngs.c -g  $(CFLAGS)
@@ -51,10 +51,10 @@ cardtests: cardtest1 cardtest2 cardtest3 cardtest4
 
 randomtestadventurer: randomtestadventurer.o dominion.o rngs.o
 	gcc -o randomtestadventurer -g randomtestadventurer.c dominion.o rngs.o $(CFLAGS)
-	./randomtestadventurer > randomtestadventurer.out
-	echo >> randomtestadventurer.out
-	gcov -b dominion.c >> randomtestadventurer.out
-	cat dominion.c.gcov >> randomtestadventurer.out
+	#./randomtestadventurer > randomtestadventurer.out
+	#echo >> randomtestadventurer.out
+	#gcov -b dominion.c >> randomtestadventurer.out
+	#cat dominion.c.gcov >> randomtestadventurer.out
 
 randomtestcard1: randomtestcard1.o dominion.o rngs.o
 	gcc -o randomtestcard1 -g randomtestcard1.c dominion.o rngs.o $(CFLAGS)
@@ -116,4 +116,4 @@ unittestresults: all unittests cardtests
 	cat dominion.c.gcov >> unittestresults.out
 	echo "Please use \"less -r unittestresults.out\" to view the results"
 
-.SILENT:
+#.SILENT:
