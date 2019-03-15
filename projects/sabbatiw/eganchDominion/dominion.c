@@ -1035,8 +1035,8 @@ int adventurerCardEffect(struct gameState *state, int currentPlayer) {
     drawCard(currentPlayer, state);
 
     // top card of hand is most recently drawn card.
-    cardDrawn = state->hand[currentPlayer][0];
-
+    cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer] - 1];
+    // changed the above index to fix bug #1
     if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold) {
       drawntreasure++;
     } else {
@@ -1062,7 +1062,7 @@ int smithyCardEffect(struct gameState *state, int currentPlayer, int handPos) {
   }
 
   // discard card from hand
-  discardCard(handPos, currentPlayer, state, 1);
+  discardCard(handPos, currentPlayer, state, 0); // changed from 1 to 0 to fix bug #2.
 
   return 0;
 }
